@@ -56,7 +56,7 @@ let maxRot = 280;
 
 const boxes = [];
 const allPositions = [];
-for (let i = 0; i < 10; i++) {
+for (let i = 0; i < 20; i++) {
   let randPos = getRandomPosition(posXLimit, posYLimit, posZLimit);
   if (allPositions.length > 0 && !validRandomPosition(randPos, allPositions)) {
     while (!validRandomPosition(randPos, allPositions)) {
@@ -76,13 +76,14 @@ for (let i = 0; i < 10; i++) {
 }
 
 function validRandomPosition(pos, allPos) {
-  let distance = .5;
+  let reqDistance = 3;
   for (const aux of allPos) {
-    if (Math.abs(pos.x - aux.x) <= distance 
-      || Math.abs(pos.y - aux.y) <= distance
-      || Math.abs(pos.z - aux.z) <= distance
-    ) {
-      return false;
+    const distanceX = Math.pow(aux.x - pos.x, 2);
+    const distanceY = Math.pow(aux.y - pos.y, 2);
+    const distanceZ = Math.pow(aux.z - pos.z, 2);
+    const realDistance = Math.sqrt(distanceX + distanceY + distanceZ);
+    if (realDistance < reqDistance) {
+        return false;
     }
   }
   return true;
