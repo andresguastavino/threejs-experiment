@@ -47,20 +47,21 @@ renderer.setClearColor(0xdfd6ef, 1);
 document.body.appendChild(renderer.domElement);
 camera.position.z = 10;
 
-let posXLimit = 8;
-let posYLimit = 4;
-let posZLimit = 3;
+let posXLimit = 20;
+let posYLimit = 20;
+let posZMin = -20;
+let posZMax = 2;
 
 let minRot = 40;
 let maxRot = 280;
 
 const boxes = [];
 const allPositions = [];
-for (let i = 0; i < 20; i++) {
-  let randPos = getRandomPosition(posXLimit, posYLimit, posZLimit);
+for (let i = 0; i < 300; i++) {
+  let randPos = getRandomPosition(posXLimit, posYLimit, posZMin, posZMax);
   if (allPositions.length > 0 && !validRandomPosition(randPos, allPositions)) {
     while (!validRandomPosition(randPos, allPositions)) {
-      randPos = getRandomPosition(posXLimit, posYLimit, posZLimit);
+      randPos = getRandomPosition(posXLimit, posYLimit, posZMin, posZMax);
     }
   }
   allPositions.push(randPos);
@@ -89,11 +90,11 @@ function validRandomPosition(pos, allPos) {
   return true;
 }
 
-function getRandomPosition(posXLimit, posYLimit, posZLimit) {
+function getRandomPosition(posXLimit, posYLimit, posZMin, posZMax) {
   return {
     x: Math.random() * (posXLimit - (posXLimit * -1)) + (posXLimit * -1),
     y: Math.random() * (posYLimit - (posYLimit * -1)) + (posYLimit * -1),
-    z: Math.random() * (posZLimit - (posZLimit * -1)) + (posZLimit * -1)
+    z: Math.random() * (posZMax - posZMin) + posZMin
   };
 }
 
@@ -101,6 +102,9 @@ function getRandomPosition(posXLimit, posYLimit, posZLimit) {
 function animate() {
   requestAnimationFrame(animate);
   renderer.render(scene.instance, camera);
+  for (const box of boxes) {
+    box.update();
+  }
 }
 
 // Ejecutar la animación
