@@ -11,9 +11,9 @@ export class Box {
     this.lines = new THREE.LineSegments(this.edges, new THREE.LineBasicMaterial({ color: 0x000000 })); 
 
     this.rotationSpeed = {
-      x: Math.random() / 1000,
-      y: Math.random() / 1000,
-      z: Math.random() / 1000
+      x: Math.random() / 300,
+      y: Math.random() / 300,
+      z: Math.random() / 300
     };
 
     this.floatSpeed = Math.random() / 300;

@@ -57,7 +57,7 @@ let maxRot = 280;
 
 const boxes = [];
 const allPositions = [];
-for (let i = 0; i < 300; i++) {
+for (let i = 0; i < 500; i++) {
   let randPos = getRandomPosition(posXLimit, posYLimit, posZMin, posZMax);
   if (allPositions.length > 0 && !validRandomPosition(randPos, allPositions)) {
     while (!validRandomPosition(randPos, allPositions)) {
